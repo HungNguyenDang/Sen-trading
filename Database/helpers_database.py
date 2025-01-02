@@ -9,7 +9,7 @@ from sqlalchemy import create_engine
 # region VARIABLES
 # from_day = pd.to_datetime("2000-01-01 00:00:00")
 # to_day = pd.to_datetime("2025-01-01 00:00:00")
-link = "C:\\Program Files\\OANDA MetaTrader 5\\terminal64.exe"
+# link = "C:\\Program Files\\OANDA MetaTrader 5\\terminal64.exe"
 # endregion
 
 def get_data_MT5(link, account, pair, from_day, to_day):
@@ -138,4 +138,26 @@ def check_data_type (df):
                 pass
     return df
 
+def get_data_sql(engine, table_name, chunk_size):
+    # Define the query to fetch data from the table `audusd_m15`
+    query = f"SELECT * FROM {table_name}"
+
+    # Specify the chunk size
     
+
+    # Read the data in chunks
+    chunk_iter = pd.read_sql_query(query, engine, chunksize=chunk_size)
+
+    # Initialize an empty list to store each chunk
+    chunks = []
+
+    # Process each chunk
+    for chunk in chunk_iter:
+        # Perform any necessary data processing on the chunk here
+        chunks.append(chunk)
+
+    # Concatenate all chunks into a single DataFrame
+    df = pd.concat(chunks, ignore_index=True)
+    
+    return df
+

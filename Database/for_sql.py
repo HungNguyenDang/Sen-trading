@@ -35,14 +35,14 @@ username = 'trading'
 password = 'Dulieulon123'
 driver = '{ODBC Driver 17 for SQL Server}'
 driver_alchemy = 'ODBC+Driver+17+for+SQL+Server'
-database_folder = 'D:\trading-with-python\SQL_Database' 
-
+database_folder = 'D:\\trading-with-python\\SQL_Database' 
+link = "C:\\Program Files\\OANDA MetaTrader 5\\terminal64.exe"
 # --------------------------------------------------------------------------------------#
 # CHANGE THESE VARIABLES
-prefix = "uk100"  # change when using manually and automatically
+prefix = "fra40"  # change when using manually and automatically
 db_name = prefix
 table_name = f"{prefix}_m15" # change when using manually
-pair_name = "UK100"  # change when using manually
+pair_name = "FRA40"  # change when using manually
 timeframe = mt5.TIMEFRAME_M15  # change when using manually
 
 unique_text = 'text_id'
