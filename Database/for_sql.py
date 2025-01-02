@@ -35,6 +35,7 @@ username = 'trading'
 password = 'Dulieulon123'
 driver = '{ODBC Driver 17 for SQL Server}'
 driver_alchemy = 'ODBC+Driver+17+for+SQL+Server'
+database_folder = 'D:\trading-with-python\SQL_Database' 
 
 # --------------------------------------------------------------------------------------#
 # CHANGE THESE VARIABLES
@@ -63,7 +64,7 @@ table_name_list = [f"{prefix}_m1", f"{prefix}_m2", f"{prefix}_m3", f"{prefix}_m4
                    f"{prefix}_w1", f"{prefix}_mn1"]
 
 Server = Create_Server(driver, server, username, password, db_name)
-create_table(Server, table_name)
+create_table(Server, table_name, database_folder)
 
 # The account for mt5
 account = Account(6269482, 'jc6qhduy', 'OANDA-Demo-1')

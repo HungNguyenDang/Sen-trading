@@ -49,7 +49,7 @@ def divide_dataframe(df, n):
     df_chunks = [df.iloc[i:i + n] for i in range(0, len(df), n)]
     return df_chunks
 
-def create_table(Server, table_name):
+def create_table(Server, table_name, database_folder):
     try:
         connection = pyodbc.connect(
             f"DRIVER={Server.driver};SERVER={Server.server};UID={Server.username};PWD={Server.password}"
@@ -73,7 +73,9 @@ def create_table(Server, table_name):
         # Enable autocommit mode
         connection.autocommit = True
         # Execute the CREATE DATABASE statement
-        create_database_query = f"CREATE DATABASE {Server.db_name}"
+        create_database_query = fr"""CREATE DATABASE {Server.db_name} 
+        ON  ( NAME = {Server.db_name}_dat, FILENAME = '{database_folder}\{Server.db_name}.mdf') 
+        LOG ON  ( NAME = {Server.db_name}_log, FILENAME = '{database_folder}\{Server.db_name}_log.ldf');"""
         cursor.execute(create_database_query)
         # Restore the previous autocommit mode
         connection.autocommit = previous_autocommit
