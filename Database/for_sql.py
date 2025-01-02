@@ -35,13 +35,17 @@ username = 'trading'
 password = 'Dulieulon123'
 driver = '{ODBC Driver 17 for SQL Server}'
 driver_alchemy = 'ODBC+Driver+17+for+SQL+Server'
-prefix = "audusd" # prefix for database name, table name
+
+# --------------------------------------------------------------------------------------#
+# CHANGE THESE VARIABLES
+prefix = "uk100"  # change when using manually and automatically
 db_name = prefix
-table_name = "audusd_h6"
-pair_name = "AUDUSD.sml"
-timeframe = mt5.TIMEFRAME_H6
+table_name = f"{prefix}_m15" # change when using manually
+pair_name = "UK100"  # change when using manually
+timeframe = mt5.TIMEFRAME_M15  # change when using manually
+
 unique_text = 'text_id'
-from_day = pd.to_datetime("2000-01-01 00:00:00")
+from_day = pd.to_datetime("2005-01-01 01:00:00") # not all instruments has data from 2000, check from broker
 to_day = pd.to_datetime("2025-01-01 00:00:00")
 chunk_capacity = 20000 # size of each time to insert data to sql
 # endregion
@@ -103,4 +107,3 @@ if automatic == 1:
 
         # add data to the table
         add_data(row['Table Name'], engine, df_chunk)
-        

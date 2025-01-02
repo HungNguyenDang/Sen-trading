@@ -52,7 +52,7 @@ def divide_dataframe(df, n):
 def create_table(Server, table_name):
     try:
         connection = pyodbc.connect(
-            f"DRIVER={Server.driver};SERVER={Server.server};UID={Server.username};PWD={Server.password};DATABASE={Server.db_name}"
+            f"DRIVER={Server.driver};SERVER={Server.server};UID={Server.username};PWD={Server.password}"
         )
         print("Connection successful!")
     except pyodbc.Error as e:
@@ -67,8 +67,17 @@ def create_table(Server, table_name):
 
     if not database_exists:
         # Create the database if it doesn't exist
+
+        # Save the current autocommit mode
+        previous_autocommit = connection.autocommit
+        # Enable autocommit mode
+        connection.autocommit = True
+        # Execute the CREATE DATABASE statement
         create_database_query = f"CREATE DATABASE {Server.db_name}"
         cursor.execute(create_database_query)
+        # Restore the previous autocommit mode
+        connection.autocommit = previous_autocommit
+        
         print(f"Database {Server.db_name} created successfully!")
     else:
         print(f"Database {Server.db_name} already exists.")
